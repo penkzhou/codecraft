@@ -8,14 +8,14 @@ export async function getAllFiles(dirPath: string, arrayOfFiles: string[] = []):
 	const files = await fs.readdir(dirPath);
   
 	for (const file of files) {
-	  const filePath = path.join(dirPath, file);
-	  const stat = await fs.stat(filePath);
+		const filePath = path.join(dirPath, file);
+		const stat = await fs.stat(filePath);
   
-	  if (stat.isDirectory()) {
-		arrayOfFiles = await getAllFiles(filePath, arrayOfFiles);
-	  } else {
-		arrayOfFiles.push(filePath);
-	  }
+		if (stat.isDirectory()) {
+			arrayOfFiles = await getAllFiles(filePath, arrayOfFiles);
+		} else {
+			arrayOfFiles.push(filePath);
+		}
 	}
   
 	return arrayOfFiles;
@@ -33,6 +33,7 @@ export async function getAllFiles(dirPath: string, arrayOfFiles: string[] = []):
 			const filesContent = await fs.readFile(file, 'utf8');
 			for (const content of filesContent) {
 				const processedContent = await processCodeWithOpenAI('apiKey', content);
+				console.log(processedContent);
 				// Handle the processed content
 			}
 			// Process file content as needed

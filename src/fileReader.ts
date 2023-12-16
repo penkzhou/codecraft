@@ -17,7 +17,7 @@ export async function getAllFiles(dirPath: string, arrayOfFiles: string[] = []):
 			arrayOfFiles.push(filePath);
 		}
 	}
-  
+	console.log('file system read, returning, this is the array of files: ', arrayOfFiles);
 	return arrayOfFiles;
   }
 

@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
+import { processCodeWithOpenAI } from './openAIIntegration';
 
 
 export async function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): Promise<string[]> {
@@ -29,7 +30,11 @@ export async function getAllFiles(dirPath: string, arrayOfFiles: string[] = []):
 
 		for (const file of allProjectFiles) {
 		try {
-			const content = await fs.readFile(file, 'utf8');
+			const filesContent = await fs.readFile(file, 'utf8');
+			for (const content of filesContent) {
+				const processedContent = await processCodeWithOpenAI('apiKey', content);
+				// Handle the processed content
+			}
 			// Process file content as needed
 		} catch (error) {
 			console.error(`Error reading file ${file}:`, error);
